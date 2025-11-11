@@ -1,18 +1,45 @@
 package com.apipedidos.service;
 
 import com.apipedidos.entity.Restaurante;
+import com.apipedidos.repository.RestauranteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-public interface RestauranteService {
+@Service
+public class RestauranteService implements RestauranteIService {
 
-    List<Restaurante> getAllRestaurantes();
+    @Autowired
+    private RestauranteRepository restauranteRepository;
 
-    Optional<Restaurante> getRestauranteById(Long id);
+    @Override
+    public List<Restaurante> getAllRestaurantes() {
+        return restauranteRepository.findAll();
+    }
 
-    Restaurante createRestaurante(Restaurante restaurante);
+    @Override
+    public Optional<Restaurante> getRestauranteById(Long id) {
+        return restauranteRepository.findById(id);
+    }
 
-    Restaurante updateRestaurante(Long id, Restaurante restauranteDetails);
+    @Override
+    public Restaurante createRestaurante(Restaurante restaurante) {
+        return restauranteRepository.save(restaurante);
+    }
 
-    void deleteRestaurante(Long id);
+    @Override
+    public Restaurante updateRestaurante(Long id, Restaurante restauranteDetails) {
+        Restaurante restaurante = restauranteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Restaurante no encontrado"));
+        restaurante.setNombre(restauranteDetails.getNombre());
+        restaurante.setDireccion(restauranteDetails.getDireccion());
+        restaurante.setCategoria(restauranteDetails.getCategoria());
+        return restauranteRepository.save(restaurante);
+    }
+
+    @Override
+    public void deleteRestaurante(Long id) {
+        restauranteRepository.deleteById(id);
+    }
 }

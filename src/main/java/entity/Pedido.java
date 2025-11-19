@@ -1,5 +1,5 @@
+package entity;
 
-package com.apipedidos.entity;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -41,14 +41,19 @@ public class Pedido {
 
     public Long getPedidoId() { return pedidoId; }
     public void setPedidoId(Long pedidoId) { this.pedidoId = pedidoId; }
+
     public LocalDate getFechaPedido() { return fechaPedido; }
     public void setFechaPedido(LocalDate fechaPedido) { this.fechaPedido = fechaPedido; }
+
     public double getTotal() { return total; }
     public void setTotal(double total) { this.total = total; }
+
     public Usuario getUsuario() { return usuario; }
     public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+
     public Restaurante getRestaurante() { return restaurante; }
     public void setRestaurante(Restaurante restaurante) { this.restaurante = restaurante; }
+
     public Repartidor getRepartidor() { return repartidor; }
     public void setRepartidor(Repartidor repartidor) { this.repartidor = repartidor; }
 }
